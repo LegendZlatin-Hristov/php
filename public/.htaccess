@@ -22,8 +22,7 @@ Options -Indexes
 
 # Prevent access to hidden files
 <FilesMatch "^\.">
-    Order allow,deny
-    Deny from all
+    Require all denied
 </FilesMatch>
 
 # PHP security settings
