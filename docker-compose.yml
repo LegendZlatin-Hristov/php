@@ -1,0 +1,24 @@
+services:
+  apache:
+    build:
+      context: .
+      dockerfile: Dockerfile.apache
+    container_name: php-apache-server
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - ./public:/var/www/html
+      - ./apache/conf:/etc/apache2/sites-available
+      - ./apache/logs:/var/log/apache2
+    environment:
+      - APACHE_RUN_USER=www-data
+      - APACHE_RUN_GROUP=www-data
+      - APACHE_LOG_DIR=/var/log/apache2
+    restart: unless-stopped
+    networks:
+      - php-network
+
+networks:
+  php-network:
+    driver: bridge
